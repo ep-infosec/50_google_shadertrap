@@ -1,0 +1,65 @@
+---
+Checks: >
+  *,
+  -abseil-*,
+  -altera-*,
+  -android-*,
+  -boost-*,
+  -darwin-*,
+  -google-objc-*,
+  -llvmlibc-*,
+  -objc-*,
+  -openmp-*,
+  -mpi-*,
+  -modernize-use-trailing-return-type,
+  -cppcoreguidelines-pro-type-vararg,
+  -cert-dcl50-cpp,
+  -hicpp-vararg,
+  -hicpp-no-array-decay,
+  -cppcoreguidelines-init-variables,
+  -cppcoreguidelines-pro-type-union-access,
+  -cppcoreguidelines-pro-type-reinterpret-cast,
+  -cppcoreguidelines-pro-type-const-cast,
+  -cppcoreguidelines-macro-usage,
+  -cppcoreguidelines-pro-bounds-array-to-pointer-decay,
+  -hicpp-avoid-c-arrays,
+  -fuchsia-default-arguments-calls,
+  -fuchsia-overloaded-operator,
+  -fuchsia-statically-constructed-objects,
+  -hicpp-signed-bitwise,
+
+  -cppcoreguidelines-pro-bounds-constant-array-index,
+  -cppcoreguidelines-pro-bounds-pointer-arithmetic,
+  -cppcoreguidelines-avoid-c-arrays,
+  -hicpp-avoid-c-arrays,
+  -modernize-avoid-c-arrays,
+  -bugprone-exception-escape,
+
+  -readability-simplify-boolean-expr,
+  -readability-use-anyofallof,
+  
+# Some comments for the above:
+
+# -readability-use-anyofallof: in this project we often think that
+#  using a good old for loop is more readable than using a lambda,
+#  especially if you want to be able to early-exit from the loop.
+
+# -readability-simplify-boolean-expr: it's quite common to implement a method
+#  as a series of checks with returns, with a final return true at the end.
+#  This check forces the final "if(c) { return false} return true;" to be
+#  turned into "return !c", which isn't always clearer.
+
+# Too many false-positives.
+# -hicpp-signed-bitwise,
+
+# TODO(paulthomson): For cppcoreguidelines-pro-bounds-pointer-arithmetic and
+#  similar, considering removing these if/when we get a "span" header.
+
+# TODO(paulthomson): If we end up using Abseil (e.g. for Span), remove
+#  -abseil-*.
+
+WarningsAsErrors: '*'
+HeaderFilterRegex: '.*shadertrap.*'
+AnalyzeTemporaryDtors: false
+FormatStyle:     file
+...
